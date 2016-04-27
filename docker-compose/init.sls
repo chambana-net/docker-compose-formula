@@ -1,4 +1,6 @@
 {% set settings = salt['pillar.get']('docker-compose:lookup:settings', {}) %}
+{% set compose_version = "1.7.0" -%}
+
 
 sources_list_docker:
   pkgrepo.managed:
@@ -18,10 +20,11 @@ docker_package:
 compose_install:
   file.managed:
     - name: /usr/local/bin/docker-compose
-    - source: https://github.com/docker/compose/releases/download/1.7.0/docker-compose-Linux-x86_64
+    - source: https://github.com/docker/compose/releases/download/{{ compose_version }}/docker-compose-Linux-x86_64
+    - source_hash: sha1=a2ea90beed70dd56f7f42f2a8b442b9a6790ddb2
     - user: root
     - group: root
-    - mode: 0775
+    - mode: 0755
     - force: True
 
 docker_service:
