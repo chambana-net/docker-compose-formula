@@ -10,17 +10,25 @@ sources_list_docker:
     - require_in:
       - pkg: docker_packages
 
-docker_packages:
+docker_package:
   pkg.installed:
     - pkgs:
       - docker-engine
-      - docker-compose
+
+compose_install:
+  file.managed:
+    - name: /usr/local/bin/docker-compose
+    - source: https://github.com/docker/compose/releases/download/1.7.0/docker-compose-Linux-x86_64
+    - user: root
+    - group: root
+    - mode: 0775
+    - force: True
 
 docker_service:
   service.running:
     - name: docker
     - enable: True
     - require:
-      - pkg: docker_packages
+      - pkg: docker_package
     - watch:
-      - pkg: docker_packages
+      - pkg: docker_package
