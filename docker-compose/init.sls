@@ -8,7 +8,7 @@ sources_list_docker:
     - keyid: 58118E89F3A912897C070ADBF76221572C52609D
     - keyserver: p80.pool.sks-keyservers.net
     - require_in:
-      - pkg: docker_packages
+      - pkg: docker_package
 
 docker_package:
   pkg.installed:
